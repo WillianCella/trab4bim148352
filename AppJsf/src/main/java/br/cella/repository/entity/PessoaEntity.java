@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,7 +17,6 @@ import javax.persistence.Table;
  * persistida no banco de dados
  * 
  * @author Willian Cella - 14 de nov de 2016 - 21:25:15
- *
  */
 
 /*
@@ -25,6 +26,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_pessoa")
+// Retorna todos os registros cadastrado no banco de dados
+@NamedQueries({ @NamedQuery(name = "PessoaEntity.findAll", query = "SELECT p FROM PessoaEntity p") })
+
 public class PessoaEntity {
 
 	@Id
