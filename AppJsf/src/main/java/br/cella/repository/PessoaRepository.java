@@ -53,15 +53,18 @@ public class PessoaRepository {
 	public List<PessoaModel> GetPessoas() {
 		List<PessoaModel> pessoasModel = new ArrayList<PessoaModel>();
 		entityManager = Uteis.JpaEntityManager();
+		// Buscando todas as pessoas no banco de dados
 		Query query = entityManager.createNamedQuery("PessoaEntity.findAll");
 
+		// Organizando a lista de pessoas por resultado de busca
 		@SuppressWarnings("unchecked")
 		Collection<PessoaEntity> pessoasEntity = (Collection<PessoaEntity>) query.getResultList();
-
 		PessoaModel pessoaModel = null;
 
+		// Varredura para setar todas as Pessoas em uma lista
 		for (PessoaEntity pessoaEntity : pessoasEntity) {
 
+			// Setando os atributos de pessoa em seus respectivos campos
 			pessoaModel = new PessoaModel();
 			pessoaModel.setCodigo(pessoaEntity.getCodigo());
 			pessoaModel.setDataCadastro(pessoaEntity.getDataCadastro());
@@ -69,26 +72,30 @@ public class PessoaRepository {
 			pessoaModel.setEndereco(pessoaEntity.getEndereco());
 			pessoaModel.setNome(pessoaEntity.getNome());
 
+			// Se a origem de cadastro for "x" então significa que veio por xml
 			if (pessoaEntity.getOrigemCadastro().equals("X"))
 				pessoaModel.setOrigemCadastro("XML");
+			// Se não for "x" então, significa que veio por input
 			else
 				pessoaModel.setOrigemCadastro("INPUT");
 
+			// Se o sexo for "m" então é masculino
 			if (pessoaEntity.getSexo().equals("M"))
 				pessoaModel.setSexo("Masculino");
+			// Se não, então é feminino
 			else
 				pessoaModel.setSexo("Feminino");
 
+			// Recupera o usuário
 			UsuarioEntity usuarioEntity = pessoaEntity.getUsuarioEntity();
-
 			UsuarioModel usuarioModel = new UsuarioModel();
 			usuarioModel.setUsuario(usuarioEntity.getUsuario());
-
 			pessoaModel.setUsuarioModel(usuarioModel);
-
+			// Adicionando o modelo de pessoa na lista
 			pessoasModel.add(pessoaModel);
 		}
 
+		// Retorna a lista com todas as pessoas cadastrados no banco de dados
 		return pessoasModel;
 
 	}
@@ -114,5 +121,13 @@ public class PessoaRepository {
 
 		// Realiza o merge para juntar as informações
 		entityManager.merge(pessoaEntity);
+	}
+
+	// Exclui uma Pessoa no banco de dados a partir do código da Pessoa
+	public void ExcluirRegistro(int codigo) {
+		entityManager = Uteis.JpaEntityManager();
+		PessoaEntity pessoaEntity = this.GetPessoa(codigo);
+		// Removendo a Pessoa da entidade
+		entityManager.remove(pessoaEntity);
 	}
 }

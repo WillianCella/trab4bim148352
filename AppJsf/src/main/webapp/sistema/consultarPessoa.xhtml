@@ -78,6 +78,11 @@
 
 				<p:column headerText="" style="width:25px;">
 
+					<p:commandButton icon="ui-icon-trash" title="Excluir Registro"
+						ajax="true"
+						actionListener="#{consultarPessoaController.ExcluirPessoa(pessoa)}"
+						update="@form" />
+
 				</p:column>
 
 			</p:dataTable>
