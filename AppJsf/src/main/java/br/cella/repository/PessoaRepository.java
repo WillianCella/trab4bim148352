@@ -4,6 +4,7 @@ package br.cella.repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -129,5 +130,32 @@ public class PessoaRepository {
 		PessoaEntity pessoaEntity = this.GetPessoa(codigo);
 		// Removendo a Pessoa da entidade
 		entityManager.remove(pessoaEntity);
+	}
+
+	// Esse método retona as pessoas agrupadas por origem de cadastro
+	public Hashtable<String, Integer> GetOrigemPessoa() {
+		Hashtable<String, Integer> hashtableRegistros = new Hashtable<String, Integer>();
+
+		// Query para buscar as pessoas no banco ordenado por origem de cadastro
+		entityManager = Uteis.JpaEntityManager();
+		Query query = entityManager.createNamedQuery("PessoaEntity.GroupByOrigemCadastro");
+
+		// Ordena por resultado da query
+		@SuppressWarnings("unchecked")
+		Collection<Object[]> collectionRegistros = (Collection<Object[]>) query.getResultList();
+
+		// Varre todos os registros para saber qual o tipo de cadastro que foi
+		// realizado
+		for (Object[] objects : collectionRegistros) {
+			String tipoPessoa = (String) objects[0];
+			int totalDeRegistros = ((Number) objects[1]).intValue();
+			if (tipoPessoa.equals("X"))
+				tipoPessoa = "XML";
+			else
+				tipoPessoa = "INPUT";
+			hashtableRegistros.put(tipoPessoa, totalDeRegistros);
+		}
+		// Retorna o HashTable de registros
+		return hashtableRegistros;
 	}
 }

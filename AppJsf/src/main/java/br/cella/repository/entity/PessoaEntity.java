@@ -27,7 +27,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_pessoa")
 // Retorna todos os registros cadastrado no banco de dados
-@NamedQueries({ @NamedQuery(name = "PessoaEntity.findAll", query = "SELECT p FROM PessoaEntity p") })
+@NamedQueries({ @NamedQuery(name = "PessoaEntity.findAll", query = "SELECT p FROM PessoaEntity p"),
+		@NamedQuery(name = "PessoaEntity.GroupByOrigemCadastro", query = "SELECT p.origemCadastro, count(p) as total FROM PessoaEntity p GROUP By p.origemCadastro")
+
+})
 
 public class PessoaEntity {
 
