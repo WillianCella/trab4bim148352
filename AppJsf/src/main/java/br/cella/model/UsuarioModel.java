@@ -1,4 +1,4 @@
-//Classe UsuarioModel com os getters e setters de cada atributo
+//Classe UsuarioModel com os getters e setters de cada atributo do Usuário
 package br.cella.model;
 
 import java.io.Serializable;
@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author Willian Cella - 8 de nov de 2016 - 21:13:58
  */
 
+// Simpels POJO
 public class UsuarioModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
