@@ -13,7 +13,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-/***
+/**
  * Esse Filter vai ser chamado toda vez que for realizado uma chamada para o
  * FacesServlet. Esse Servlet, gerencia o ciclo de vida de processamento de um
  * web application que utiliza JSF

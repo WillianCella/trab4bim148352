@@ -28,6 +28,7 @@ public class ConsultarPessoaController implements Serializable {
 	@Inject
 	transient private PessoaModel pessoaModel;
 
+	// Lista de pessoa que vai ser utilizada posteriormente
 	@Produces
 	private List<PessoaModel> pessoas;
 

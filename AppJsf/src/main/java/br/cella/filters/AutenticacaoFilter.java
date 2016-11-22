@@ -26,14 +26,6 @@ import br.cella.model.UsuarioModel;
 @WebFilter("/sistema/*")
 public class AutenticacaoFilter implements Filter {
 
-	// Construtor vazio!
-	public AutenticacaoFilter() {
-	}
-
-	// Método destrutor
-	public void destroy() {
-	}
-
 	// Filtro para as requisições HTTP
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -64,8 +56,12 @@ public class AutenticacaoFilter implements Filter {
 		}
 	}
 
-	public void init(FilterConfig fConfig) throws ServletException {
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {
 
 	}
 
+	// Método destrutor
+	public void destroy() {
+	}
 }
